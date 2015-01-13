@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+
+import argparse
+from switterslib.sending import send
+from switterslib.receiving import receive
+
+def send_args(args):
+  send(args.username, args.message, args.dry_run, args.verbose)
+  
+def receive_args(args):
+  receive(args.tweet_id, args.verbose)
+
+parser = argparse.ArgumentParser(description='Send a secret message via Twitter')
+
+# Add common commands
+parser.add_argument('-d', '--dry_run', action='store_const', const=True, default=False, help='Don\'t post anyting to Twitter, just log what you would post.')
+parser.add_argument('-v', '--verbose', action='store_const', const=True, default=False)
+
+subparsers = parser.add_subparsers()
+
+# Create 'send' parser
+parser_send = subparsers.add_parser('send', help='Send an encrypted message')
+parser_send.add_argument('-m', '--message', type=str, help='The message that you would like to send', required=True)
+parser_send.add_argument('-u', '--username', type=str, help='The twitter name of the recipient of your message', required=True)
+parser_send.set_defaults(func=send_args)
+
+# Create 'receive' parser
+parser_receive = subparsers.add_parser('receive', help='Decrypt a sent message')
+parser_receive.add_argument('tweet_id', type=int, help='Tweet ID of encrypted message')
+parser_receive.set_defaults(func=receive_args)
+
+#parse them args
+args = parser.parse_args()
+args.func(args)
