@@ -30,6 +30,9 @@ def send(username, message, dry_run=False, verbose=False):
   print('Encoding message...')
   enc_message = check_output(['keybase', 'encrypt', '-m', message, username])
   
+  if verbose:
+  	print('Encoded message:\n{}'.format(enc_message))
+  
   print('Creating QR code...')
   qr = qrcode.make(data=enc_message)
   side = qr.pixel_size / 2
@@ -42,12 +45,18 @@ def send(username, message, dry_run=False, verbose=False):
   
   # Save the image in a tweet
   api = twitter_config.create_twitter_api()
+  if verbose:
+  	print("Twitter api:\n{}".format(api))
   
   f = open(output_file, 'r')
-  kwargs = {'status': '@' + kb_user[1] + ' Here\'s a secret message.', 'media': f}
+  kwargs = {'status': '@' + kb_user[1] + ' Here\'s a secret message.\nVisit https://github.com/jkubicek/Switters to decrypt.', 'media[]': f}
+  
+  if verbose:
+  	print("Tweet arguments:\n{}".format(kwargs))
   
   tweet = {'id': 'Not a real tweet'}
   if not dry_run:
-    tweet = api.update_status_with_media(**kwargs)
+    tweet = api.update_status_with_single_media(**kwargs)
     
   print("Sent tweet with ID {}".format(tweet['id']))
+  
