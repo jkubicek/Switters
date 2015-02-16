@@ -49,14 +49,14 @@ def send(username, message, dry_run=False, verbose=False):
   	print("Twitter api:\n{}".format(api))
   
   f = open(output_file, 'r')
-  kwargs = {'status': '@' + kb_user[1] + ' Here\'s a secret message.\nVisit https://github.com/jkubicek/Switters to decrypt.', 'media[]': f}
+  kwargs = {'status': '@' + kb_user[1] + ' Here\'s a secret message.\nVisit https://github.com/jkubicek/Switters to decrypt.', 'media': f}
   
   if verbose:
   	print("Tweet arguments:\n{}".format(kwargs))
   
   tweet = {'id': 'Not a real tweet'}
   if not dry_run:
-    tweet = api.update_status_with_single_media(**kwargs)
+    tweet = api.update_status_with_media(**kwargs)
     
   print("Sent tweet with ID {}".format(tweet['id']))
   
