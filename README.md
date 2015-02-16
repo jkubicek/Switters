@@ -1,6 +1,10 @@
 Switters
 ========
 
+Switters (secure twitters) is a script for sending encrypted messages via Twitter @replies. The messages are encrypted with your Keybase account, packaged in a QR code and attached to a tweet as an image. The recipient can then decode the image and decrypt the message. 
+
+Disclaimer: I'm not a security expert. I doubt this code will stand up to the NSA. Don't use this to transmit actual secrets.
+
 Installation
 ------------
 
