@@ -20,3 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+This project contains code from the https://github.com/zxing/zxing library, distributed 
+under the Apache License. Please see the COPYING file in zxing_java for details.
+
+This project contains code from the https://github.com/oostendo/python-zxing project, 
+distributed with no apparent license. Don't take any chances and use this for commercial 
+uses.
